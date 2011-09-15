@@ -1,0 +1,11 @@
+
+[Desktop Entry]
+Type=Application
+Exec=xscreenserver-demo
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[pl_PL]=xscreenserver-demo
+Name=xscreenserver-demo
+Comment[pl_PL]=
+Comment=

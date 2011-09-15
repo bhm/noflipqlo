@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<screensaver name="Now Open Flipqlo v. beta 3" _label="NoFlipQlo">
+
+  <command arg="-root"/>
+  <select id="Mode">
+    <option id="24h" _label="24h mode"/>
+    <option id="AMPM" _label="AM/PM mode"      arg-set="-ampm"/>
+  </select>
+
+  <_description>
+NoFlipQlock.
+It extends int Now Open Flip Qlock. Would you guess?
+Open Source implementation of Fliqlo screensaver for Windows and OSX systems which can be found on www.9031.com/downloads/screensavers.html.
+
+Written by h!v aka bhm.
+  </_description>
+</screensaver>
