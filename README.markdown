@@ -15,9 +15,9 @@
 	 */
 
 ----------------------------------
-##Whats that?
+##What's that?
 ----------------------------------
-It's Open Source port of Fliqlo screensaver for Windows and OSX platforms.
+It's Open Source implementation of Fliqlo screensaver that's available for Windows and OSX platforms.
 It uses SDL libraries to draw. 
 Ever seen a flip clock? No. Google one out. Freaky technology.
 
