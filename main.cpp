@@ -18,7 +18,7 @@
 using namespace std;
 int past_m=0;
 
-bool twentyfourh = false;
+bool twentyfourh = true;
 bool fullscreen  = false;
 
 SDL_Surface *screen;
