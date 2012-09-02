@@ -15,28 +15,23 @@
 	 */
 
 ----------------------------------
-##Whats that?
+#Whats that?
 ----------------------------------
 It's Open Source port of Fliqlo screensaver for Windows and OSX platforms.
-It uses SDL libraries to draw. 
-Ever seen a flip clock? No. Google one out. Freaky technology.
-
-It uses xscreensaver. Gnome-screensaver for some reason doesn't like and says "I ain't seen shit" even tho supposedly should see  this program.
-If you'd like to fight with it for some time try copying noflipql.desktop file to /usr/share/applications/screensavers/ or ~/.local/share/applications/screensavers/.
-Gnome-screensaver is a poopoohead anyway.
-a) You won't be able easily switch time mode(24h or AM/PM)
-b) It sees screensaver, but it won't do anything. Seems I'd need to drop event handling.
+Uses SDL libraries to draw to screen.
+No idea who uses screensavers these days, but still was fun to write it.
 
 
-----------------------------------
-##Code
-----------------------------------
-
-It needs reimplementation to draw via SVG and/or with higher resolution background.
-Needs major clean up.
+----
+#Changelog
+----
+##2.0
+* Code was cleaned up
+* Moved away from using a bitmap onto drawing with primitives to draw a background. Still needs aliasing for jagged corners;
+* Custom width, height, Truetype font now supported.
 
 ----------------------------------
-##INSTALLATION
+#INSTALLATION
 ----------------------------------
 Compile and install files with:
 
