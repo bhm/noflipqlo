@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
-<screensaver name="Now Open Flipqlo v. beta 3" _label="NoFlipQlo">
+<screensaver name="Now Open Flipqlo 2.0" _label="NoFlipQlo">
 
   <command arg="-root"/>
   <select id="Mode">
