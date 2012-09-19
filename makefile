@@ -15,7 +15,6 @@ noflipqlo: main.cpp
 	$(CC) $(CFLAGS) $(LDFLAGS)
 install:
 	install -o root noflipqlo /usr/lib/xscreensaver/
-	install -o root noflipqlo.xml /usr/share/xscreensaver/config/
-	install -o root back.bmp /usr/share/images/		
+	install -o root noflipqlo.xml /usr/share/xscreensaver/config/		
 clean:
 	rm -rf noflipqlo
