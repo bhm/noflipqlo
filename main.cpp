@@ -22,6 +22,8 @@ bool twentyfourh = true;
 bool fullscreen  = false;
 
 SDL_Surface *screen;
+
+
 TTF_Font *FONT_TIME = NULL;
 TTF_Font *FONT_MODE = NULL;
 SDL_Color FONT_COLOR_WHITE = {176,176,176};
@@ -37,7 +39,7 @@ int screenHeight = 0;
 const int DEFAULT_WIDTH = 640;
 const int DEFAULT_HEIGHT = 480;
 
-const char* FONT_FILE_BOLD = "/usr/share/fonts/truetype/droid/DroidSans-Bold.ttf";
+const char* FONT_FILE_BOLD = "/usr/share/fonts/TTF/DejaVuSansMono-Bold.ttf";
 const char* FONT_FILE_FALLBACK = "/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-B.ttf";
 const char* FONT_CUSTOM_FILE = "";
 const Uint32 COLOR_FONT = 0xb7b7b7FF;
@@ -314,6 +316,7 @@ int main (int argc, char** argv ) {
     bool done = false;
     while (!done) {
         SDL_Event event;
+	SDL_Delay(300);
         while (SDL_PollEvent(&event)) {
             switch (event.type) {
             case SDL_USEREVENT:
