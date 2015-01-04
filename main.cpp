@@ -39,7 +39,7 @@ int screenHeight = 0;
 const int DEFAULT_WIDTH = 640;
 const int DEFAULT_HEIGHT = 480;
 
-const char* FONT_FILE_BOLD = "/usr/share/fonts/TTF/DejaVuSansMono-Bold.ttf";
+const char* FONT_FILE_BOLD = "/usr/share/fonts/truetype/droid/DroidSans-Bold.ttf";
 const char* FONT_FILE_FALLBACK = "/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-B.ttf";
 const char* FONT_CUSTOM_FILE = "";
 const Uint32 COLOR_FONT = 0xb7b7b7FF;
