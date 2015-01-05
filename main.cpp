@@ -22,6 +22,8 @@ bool twentyfourh = true;
 bool fullscreen  = false;
 
 SDL_Surface *screen;
+
+
 TTF_Font *FONT_TIME = NULL;
 TTF_Font *FONT_MODE = NULL;
 SDL_Color FONT_COLOR_WHITE = {176,176,176};
@@ -314,6 +316,7 @@ int main (int argc, char** argv ) {
     bool done = false;
     while (!done) {
         SDL_Event event;
+	SDL_Delay(300);
         while (SDL_PollEvent(&event)) {
             switch (event.type) {
             case SDL_USEREVENT:
