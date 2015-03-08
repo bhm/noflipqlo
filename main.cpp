@@ -11,7 +11,7 @@
 #include "SDL_ttf.h"
 #include "SDL_syswm.h"
 #include "SDL_gfxPrimitives.h"
-#include <time.h>
+#include <sys/time.h>
 #include <string.h>
 #include <string>
 #include <X11/Xlib.h>
@@ -46,10 +46,10 @@ const Uint32 COLOR_FONT = 0xb7b7b7FF;
 const Uint32 COLOR_BACKGROUND = 0x0a0a0a;
 
 Uint32 checkEmit(Uint32 interval, void *param) {
-    time_t rawtime;
+    timeval tv;
     struct tm * time_i;
-    time(&rawtime);
-    time_i = localtime(&rawtime);
+    gettimeofday(&tv, NULL);
+    time_i = localtime(&tv.tv_sec);
 
     if ( time_i->tm_min != past_m) {
         SDL_Event e;
@@ -64,7 +64,7 @@ Uint32 checkEmit(Uint32 interval, void *param) {
 
     // Don't wake up until the next minute.
     Uint32 seconds_to_next_minute = 60 - time_i->tm_sec;
-    interval = seconds_to_next_minute*1000;
+    interval = seconds_to_next_minute*1000 - tv.tv_usec/1000;
     // Make sure interval is positive.
     // Should only matter for leap seconds.
     if ( interval <= 0 ) {
