@@ -328,6 +328,7 @@ int main (int argc, char** argv ) {
         SDL_WaitEvent(&event); {
             switch (event.type) {
             case SDL_USEREVENT:
+                SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
                 time_t rawTime;
                 struct tm * _time;
                 time(&rawTime);
@@ -348,7 +349,6 @@ int main (int argc, char** argv ) {
                 break;
             }
         }
-        SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
     }
     SDL_FreeSurface(screen);
     TTF_CloseFont(FONT_TIME);
