@@ -316,8 +316,7 @@ int main (int argc, char** argv ) {
     bool done = false;
     while (!done) {
         SDL_Event event;
-	SDL_Delay(300);
-        while (SDL_PollEvent(&event)) {
+        SDL_WaitEvent(&event); {
             switch (event.type) {
             case SDL_USEREVENT:
                 time_t rawTime;
