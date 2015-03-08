@@ -61,6 +61,15 @@ Uint32 checkEmit(Uint32 interval, void *param) {
         printf("Time is: %d : %d\n", time_i->tm_hour, time_i->tm_min);
         past_m = time_i->tm_min;
     }
+
+    // Don't wake up until the next minute.
+    Uint32 seconds_to_next_minute = 60 - time_i->tm_sec;
+    interval = seconds_to_next_minute*1000;
+    // Make sure interval is positive.
+    // Should only matter for leap seconds.
+    if ( interval <= 0 ) {
+        interval = 500;
+    }
     return (interval);
 }
 int initSDL() {
