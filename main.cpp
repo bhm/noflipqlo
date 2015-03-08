@@ -42,8 +42,12 @@ const int DEFAULT_HEIGHT = 480;
 const char* FONT_FILE_BOLD = "/usr/share/fonts/truetype/droid/DroidSans-Bold.ttf";
 const char* FONT_FILE_FALLBACK = "/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-B.ttf";
 const char* FONT_CUSTOM_FILE = "";
-const Uint32 COLOR_FONT = 0xb7b7b7FF;
-const Uint32 COLOR_BACKGROUND = 0x0a0a0a;
+
+const Uint32 COLOR_FONT_RGB = 0xb7b7b7;
+const Uint32 COLOR_BACKGROUND_RGB = 0x0a0a0a;
+
+Uint32 COLOR_FONT;
+Uint32 COLOR_BACKGROUND;
 
 Uint32 checkEmit(Uint32 interval, void *param) {
     time_t rawtime;
@@ -69,6 +73,13 @@ int initSDL() {
         return 2;
     }
     return 0;
+}
+
+Uint32 mapRGB24(const SDL_PixelFormat* format, Uint32 rgb) {
+    return SDL_MapRGB(format,
+                      rgb >> 16,
+                      (rgb >> 8) & 0xff,
+                      rgb & 0xff);
 }
 
 int initRescouces() {
@@ -101,6 +112,10 @@ int initRescouces() {
 
         return param;
     }
+
+    // Get colors in proper format.
+    COLOR_FONT = mapRGB24(screen->format, COLOR_FONT_RGB);
+    COLOR_BACKGROUND = mapRGB24(screen->format, COLOR_BACKGROUND_RGB);
 
     /* CALCULATE BACKGROUND COORDINATES */
     hourBackground.y = 0.2 * customHeight;
