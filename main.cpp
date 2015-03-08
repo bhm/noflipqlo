@@ -346,5 +346,5 @@ int main (int argc, char** argv ) {
     TTF_CloseFont(FONT_TIME);
     TTF_CloseFont(FONT_MODE);
     printf("Exited cleanly\n");
-    return 5;
+    return 0;
 }
