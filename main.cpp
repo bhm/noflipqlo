@@ -166,7 +166,6 @@ void drawRoundedBackground(SDL_Surface * surface, SDL_Rect * coordinates) {
             fill_circle(surface, coordinates->x + j, coordinates->y + i, radius, COLOR_BACKGROUND);
         }
     }
-    SDL_Flip(surface);
 }
 
 SDL_Rect getCoordinates(SDL_Rect * background, SDL_Surface * foreground) {
