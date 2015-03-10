@@ -15,6 +15,7 @@
 #include <string.h>
 #include <string>
 #include <X11/Xlib.h>
+#include <signal.h>
 using namespace std;
 int past_m=0;
 
@@ -45,11 +46,21 @@ const char* FONT_CUSTOM_FILE = "";
 const Uint32 COLOR_FONT = 0xb7b7b7FF;
 const Uint32 COLOR_BACKGROUND = 0x0a0a0a;
 
-Uint32 checkEmit(Uint32 interval, void *param) {
+
+void checkTime(struct tm **time_i, Uint32 *ms_to_next_minute) {
     timeval tv;
-    struct tm * time_i;
     gettimeofday(&tv, NULL);
-    time_i = localtime(&tv.tv_sec);
+    *time_i = localtime(&tv.tv_sec);
+
+    Uint32 seconds_to_next_minute = 60 - (*time_i)->tm_sec;
+    *ms_to_next_minute = seconds_to_next_minute*1000 - tv.tv_usec/1000;
+}
+
+Uint32 checkEmit(Uint32 interval, void *param) {
+    struct tm * time_i;
+    Uint32 ms_to_next_minute;
+
+    checkTime(&time_i, &ms_to_next_minute);
 
     if ( time_i->tm_min != past_m) {
         SDL_Event e;
@@ -63,8 +74,7 @@ Uint32 checkEmit(Uint32 interval, void *param) {
     }
 
     // Don't wake up until the next minute.
-    Uint32 seconds_to_next_minute = 60 - time_i->tm_sec;
-    interval = seconds_to_next_minute*1000 - tv.tv_usec/1000;
+    interval = ms_to_next_minute;
     // Make sure interval is positive.
     // Should only matter for leap seconds.
     if ( interval <= 0 ) {
@@ -223,7 +233,28 @@ void drawTime(SDL_Surface *surface, tm * _time) {
     }
 }
 
+void drawAll(void) {
+    SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
+    time_t rawTime;
+    struct tm * _time;
+    time(&rawTime);
+    _time = localtime(&rawTime);
+    drawRoundedBackground(screen, &hourBackground);
+    drawRoundedBackground(screen, &minBackground);
+    drawTime(screen, _time);
+    if (!twentyfourh)
+        drawAMPM(screen, _time);
+    drawDivider(screen);
+}
+
+void exitImmediately(int sig) {
+    exit(0);
+}
+
 int main (int argc, char** argv ) {
+    signal(SIGINT, exitImmediately);
+    signal(SIGTERM, exitImmediately);
+
     char *wid_env;
     static char sdlwid[100];
     Uint32 wid = 0;
@@ -322,23 +353,15 @@ int main (int argc, char** argv ) {
         return 2;
     }
 
+    // Initial draw.
+    drawAll();
     bool done = false;
     while (!done) {
         SDL_Event event;
-        SDL_WaitEvent(&event); {
+        while(SDL_PollEvent(&event)) {
             switch (event.type) {
             case SDL_USEREVENT:
-                SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
-                time_t rawTime;
-                struct tm * _time;
-                time(&rawTime);
-                _time = localtime(&rawTime);
-                drawRoundedBackground(screen, &hourBackground);
-                drawRoundedBackground(screen, &minBackground);
-                drawTime(screen, _time);
-                if (!twentyfourh)
-                    drawAMPM(screen, _time);
-                drawDivider(screen);
+                drawAll();
                 break;
             case SDL_KEYDOWN:
                 if (event.key.keysym.sym == SDLK_ESCAPE)
@@ -348,6 +371,17 @@ int main (int argc, char** argv ) {
                 done = true;
                 break;
             }
+        }
+
+        struct tm * time_i;
+        Uint32 ms_to_next_minute;
+
+        checkTime(&time_i, &ms_to_next_minute);
+        if(ms_to_next_minute > 100) {
+            // Wait a bit less to make sure event fires at the right time.
+            SDL_Delay(ms_to_next_minute - 100);
+        } else {
+            SDL_Delay(30);
         }
     }
     SDL_FreeSurface(screen);
