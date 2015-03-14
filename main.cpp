@@ -90,7 +90,7 @@ int initSDL() {
     return 0;
 }
 
-int initRescouces() {
+int initResources() {
     try {
         screen = SDL_SetVideoMode(0,0,32, SDL_FULLSCREEN);
         screenHeight = screen->h;
@@ -190,7 +190,7 @@ void drawDivider(SDL_Surface * surface) {
     line.w = customWidth;
     line.x = 0;
     line.y = (customHeight * 0.5) - line.h;
-    printf("Devider properties\n\tHeight %d\n\tWidth %d\n\tCoordinate x %d\n\tCoordinate y %d\n", line.h, line.w, line.x, line.y);
+    printf("Divider properties\n\tHeight %d\n\tWidth %d\n\tCoordinate x %d\n\tCoordinate y %d\n", line.h, line.w, line.x, line.y);
     SDL_FillRect(surface, &line, SDL_MapRGBA(surface->format, 0,0,0,0));
     SDL_Flip(surface);
 }
@@ -332,7 +332,7 @@ int main (int argc, char** argv ) {
 
     initSDL();
     TTF_Init();
-    initRescouces();
+    initResources();
     SDL_ShowCursor(SDL_DISABLE);
 
     atexit(SDL_Quit);
